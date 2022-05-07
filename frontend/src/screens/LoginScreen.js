@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Link, useLocation} from 'react-router-dom'
+import {Link, useLocation, useNavigate} from 'react-router-dom'
 import {Form,Button,Row,Col} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/message'
@@ -9,12 +9,12 @@ import FormContainer from '../components/FormContainer'
 
 
 
-function LoginScreen({history}) {
+function LoginScreen() {
 
     const [email,setEmail]=useState('')
     const [password, setPassword] = useState('')
     const location = useLocation()
-    // const history = useHistory()
+    const navigate = useNavigate()
     const redirect=location.search ? location.search.split('=')[1]:'/'
 
     const dispatch = useDispatch()
@@ -24,9 +24,9 @@ function LoginScreen({history}) {
 
     useEffect(()=>{
         if(userInfo){
-            history.push(redirect)
+            navigate(redirect)
         }
-    },[history,userInfo,redirect])
+    },[navigate,userInfo,redirect])
 
         const submitHandler = (e) => {
             e.preventDefault()
@@ -73,5 +73,6 @@ function LoginScreen({history}) {
     </FormContainer>
   )
 }
+
 
 export default LoginScreen
